@@ -1,4 +1,4 @@
-﻿# Lets play the game
+﻿# Web Sockets Demo with C# and SignalR
 
 Try out this sample project to see how WebSocket, SignalR and ASP.Net Core can be used togther to create a simple game. Since the application is a multi-player game, one simple way to authenticate and identify individual players is to use Okta.
 
