@@ -11,7 +11,7 @@ Once you click Done to save your Okta application, make a note of the Client ID 
 
 Update the react-router component with the authentication information. In `ClientApp/src/App.js`, update the code to:
 
-```
+```cs
 export default class App extends Component {
     static displayName = App.name;
 
@@ -33,4 +33,7 @@ export default class App extends Component {
 }
 ```
 
+## Getting Help
 
+## LICENSE
+[Apache 2.0](LICENSE)
