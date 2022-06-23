@@ -12,17 +12,17 @@ export default class App extends Component {
 
     render() {
         return (
-            <Security
-                issuer={`https://{your-Organization-Url}/oauth2/default`}
-                client_id='{Your-Client-Secret}'
+            /*<Security
+                issuer={`https://dev-48773554.okta.com/oauth2/default`}
+                client_id='0oa5he7tap1gvBorF5d7'
                 redirect_uri={`${window.location.origin}/implicit/callback`}
-            >
+            >*/
                 <Layout>
                     <Route exact path='/' component={Leaderboard} />
-                    <SecureRoute path='/connect4' component={Connect4} />
+                    <Route path='/connect4' component={Connect4} />
                     <Route path="/implicit/callback" component={ImplicitCallback} />
                 </Layout>
-            </Security>
-        );
+/*            </Security>
+*/        );
     }
 }

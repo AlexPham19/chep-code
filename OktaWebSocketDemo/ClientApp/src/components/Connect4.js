@@ -16,8 +16,8 @@ export default withAuth(class Connect4 extends Component {
             hubConnection: null,
             message: 'Waiting for another player...',
             yourTurn: false,
-            player1: { email: '', name: '', color: '' },
-            player2: { email: '', name: '', color: '' },
+            player1: { email: 'email1', name: 'name1', color: 'yellow' },
+            player2: { email: 'email2', name: 'name2', color: 'red' },
             showButtons: false
         }
     }
@@ -25,7 +25,7 @@ export default withAuth(class Connect4 extends Component {
     async componentDidMount() {
 
         const hubConnection = new HubConnectionBuilder().withUrl("/game").configureLogging(LogLevel.Information).build();
-        const user = await this.props.auth.getUser();
+        const user = this.state.player1;//await this.props.auth.getUser();
 
         this.setState({ hubConnection }, () => {
             this.state.hubConnection
