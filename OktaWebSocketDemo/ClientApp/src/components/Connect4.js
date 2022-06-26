@@ -78,7 +78,7 @@ export default withAuth(class Connect4 extends Component {
 
     }
 
-    onColumnClick = column => this.state.hubConnection.invoke('columnClick', column).catch(err => console.error(err.toString()));
+    onColumnClick = (row, column) => this.state.hubConnection.invoke('columnClick', row, column).catch(err => console.error(err.toString()));
 
     render() {
         return (

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace OktaWebSocketDemo
+namespace OktaWebSocketDemo 
 {
-    public class Game
+    public class Game // Class này không liên quan đến kết nối, mà chỉ là trò chơi
     {
         public const string EmptyCell = "white";
         public const string RedCell = "red";
@@ -17,13 +17,13 @@ namespace OktaWebSocketDemo
 
         public Game()
         {
-            PopulateBoard();
-            Player1 = new Player();
+            PopulateBoard(); // Sắp xếp lại bảng
+            Player1 = new Player(); // Khởi tạo ván đấu
             Player2 = new Player();
         }
 
-        public Player GetPlayer(string connectionId)
-        {
+        public Player GetPlayer(string connectionId) // Tạo tài khoản người chơi, dựa trên ConnectionID 
+        {                                            // Có lẽ mỗi người chơi sẽ phát ra cái đó?
             if (Player1 != null && Player1.ConnectionId == connectionId)
             {
                 return Player1;
@@ -35,7 +35,7 @@ namespace OktaWebSocketDemo
             return null;
         }
 
-        public bool HasPlayer(string connectionId)
+        public bool HasPlayer(string connectionId) // kiểm tra xem có ai không
         {
             if (Player1 != null && Player1.ConnectionId == connectionId)
             {
@@ -48,8 +48,11 @@ namespace OktaWebSocketDemo
             return false;
         }
 
-        public string Id { get; set; }
-
+        public string Id { get; set; }  // id chời tro?
+        /// <summary>
+        /// Các hàm mới
+        /// </summary>
+    #region các hàm chơi
         private void PopulateBoard()
         {
             Board = new string[NumberOfRows][];
@@ -260,26 +263,13 @@ namespace OktaWebSocketDemo
 
         }
 
-        public (bool exists, int row) TryGetNextOpenRow(int column)
+        public bool TryGetNextOpenRow(int row, int column)
         {
-            int row = -1;
-            for (row = Game.NumberOfRows - 1; row >= 0; --row)
-            {
-                if (Board[row][column] == Game.EmptyCell)
-                {
-                    Board[row][column] = CurrentPlayer.Color;
-                    break;
-                }
-            }
-
-            if (row != -1)
-            {
-                return (true, row);
-            }
-
-            return (false, 0);
-
-
+            if (Board[row][column] == Game.EmptyCell) {             
+                Board[row][column] = CurrentPlayer.Color;
+                return true;
+            }            
+            return false;
         }
 
         public void NextPlayer()
@@ -315,7 +305,7 @@ namespace OktaWebSocketDemo
 
             return false;
         }
-
+    #endregion
 
         public Player Player1 { get; private set; }
 

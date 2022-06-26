@@ -6,7 +6,7 @@ const Cell = ({ onColumnClick, cellKey, row, column, fill, style, cellSize, left
     const radius = 18;
 
     return (
-        <g key={cellKey} onClick={(_) => onColumnClick(column)} style={style}>
+        <g key={cellKey} onClick={(_) => onColumnClick(row, column)} style={style}>
             <rect x={leftMargin + column * cellSize} y={row * cellSize} width={cellSize} height={cellSize} fill={'darkblue'} />
             <circle cx={leftMargin + centerOffset + column * cellSize} cy={centerOffset + row * cellSize} r={radius} fill={fill} />
         </g>)

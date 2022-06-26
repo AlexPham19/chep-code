@@ -25,7 +25,10 @@ namespace OktaWebSocketDemo
 
             services.AddControllersWithViews();
 
-            services.AddSignalR();
+            services.AddSignalR(options =>
+            {
+                options.EnableDetailedErrors = true;
+            });
             services.AddSingleton<IGameRepository>(new GameRepository());
             services.AddSingleton(new Random());
 

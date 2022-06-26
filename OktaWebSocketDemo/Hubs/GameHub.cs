@@ -15,6 +15,7 @@ namespace OktaWebSocketDemo.Hubs
         Task RollCall(Player player1, Player player2);
         Task Concede();
         Task Victory(string player, string[][] board);
+        //Task ColumnClick(int row, int column);
     }
 
     public class GameHub : Hub<IGameClient>
@@ -40,7 +41,7 @@ namespace OktaWebSocketDemo.Hubs
             }
         }
 
-        public async Task ColumnClick(int column)
+        public async Task ColumnClick(int row, int column)
         {
             var game = _repository.Games.FirstOrDefault(g => g.HasPlayer(Context.ConnectionId));
             if (game is null)
@@ -58,10 +59,10 @@ namespace OktaWebSocketDemo.Hubs
             //ignore games that havent started
             if (!game.InProgress) return;
 
-            var result = game.TryGetNextOpenRow(column);
+            var result = game.TryGetNextOpenRow(row, column);
 
             // find first open spot in the column
-            if (!result.exists)
+            if (!result)
             {
                 //ignore clicks on full columns
                 return;
@@ -70,7 +71,7 @@ namespace OktaWebSocketDemo.Hubs
             await Clients.Group(game.Id.ToString()).RenderBoard(game.Board);
 
             // Check victory (only current player can win)
-            if (game.CheckVictory(result.row, column))
+            if (game.CheckVictory(row, column))
             {
                 if (game.CurrentPlayer == game.Player1)
                 {
